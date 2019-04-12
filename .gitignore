@@ -1,0 +1,8 @@
+*.pyc
+*.log
+*.sql
+*.bak
+*.tmp
+*~
+/node_modules
+.idea
