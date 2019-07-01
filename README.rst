@@ -1,3 +1,4 @@
 Promo
 =============================================
-Reward users with promo-codes
+Reward users with promo-codes.
+Currently under heavy development.
