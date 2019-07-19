@@ -31,3 +31,16 @@ class PromoCodeHandler(CreatingMixin, UpdatingMixin, DeletionMixin, DetailMixin,
 class PromoCodeListHandler(ListHandler):
     """Get list of promo codes."""
     model = PromoCode
+
+
+class UsePromoCode(ModelFormHandler):
+    """Use promo code."""
+    model = PromoCode
+
+    async def put(self, *args, **kwargs):
+        # noinspection PyAttributeOutsideInit
+        self.object = await self.get_object()
+        await self.object.use()
+
+    async def post(self, *args, **kwargs):
+        await self.put(*args, **kwargs)
