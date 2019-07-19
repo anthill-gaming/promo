@@ -38,12 +38,12 @@ class PromoCode(db.Model):
     expires = db.Column(db.DateTime, nullable=False)
     enabled = db.Column(db.Boolean, nullable=False, default=True)
 
-    async def save(self, *args, **kwargs):
+    def save(self, *args, **kwargs):
         if not self.key:
-            self.key = await self.generate_key()
-        await future_exec(super().save, *args, **kwargs)
+            self.key = self.generate_key()
+        super().save(*args, **kwargs)
 
-    @as_future
+    # noinspection PyMethodMayBeStatic
     def generate_key(self):
         return get_random_string(PROMO_LENGTH, PROMO_CHARS)
 
@@ -55,7 +55,7 @@ class PromoCode(db.Model):
 
     @hybrid_property
     def expired(self):
-        return self.expires <= timezone.now()
+        return timezone.now() < self.expires
 
     @hybrid_property
     def left_count(self):
@@ -69,5 +69,5 @@ class PromoCode(db.Model):
         if not self.available:
             raise ValueError('Promo code is not available')
         self.used_count += 1
-        await self.save(commit=commit)
+        await future_exec(self.save, commit=commit)
         return self.payload

@@ -3,7 +3,9 @@
 from tornado.web import url
 from . import handlers
 
-# Create your routes here.
-route_patterns = [
 
+route_patterns = [
+    url(r'^/promo/(?P<id>[^/]+)/?$', handlers.PromoCodeHandler, name='promo_code'),
+    url(r'^/promo/?$', handlers.PromoCodeHandler, name='promo_code_create'),
+    url(r'^/promo-list/?$', handlers.PromoCodeListHandler, name='promo_codes'),
 ]
