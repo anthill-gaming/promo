@@ -3,6 +3,7 @@ from anthill.platform.api.rest.handlers.edit import (
     CreatingMixin, UpdatingMixin, DeletionMixin, ModelFormHandler)
 from anthill.platform.api.rest.handlers.list import ListHandler
 from promo.models import PromoCode
+from .forms import ChangePromoCodeForm
 
 
 class PromoCodeHandler(CreatingMixin, UpdatingMixin, DeletionMixin, DetailMixin,
@@ -15,7 +16,11 @@ class PromoCodeHandler(CreatingMixin, UpdatingMixin, DeletionMixin, DetailMixin,
 
     def get_form_class(self):
         """Return the form class to use in this handler."""
-        form_class = super().get_form_class()
+        if self.request.method in ('GET',):  # Detail
+            form_class = super().get_form_class()
+        else:
+            form_class = ChangePromoCodeForm
+
         if self.request.method in ('PUT',):  # Updating
             # Patching form meta
             setattr(form_class.Meta, 'all_fields_optional', True)
