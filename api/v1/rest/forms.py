@@ -3,7 +3,7 @@ from anthill.framework.forms.orm import (
 from promo.models import PromoCode
 
 
-class ChangePromoCodeForm(ModelForm):
+class EditPromoCodeForm(ModelForm):
     class Meta:
         model = PromoCode
         exclude = ['key']

@@ -8,5 +8,5 @@ route_patterns = [
     url(r'^/promo/(?P<id>[^/]+)/?$', handlers.PromoCodeHandler, name='promo_code'),
     url(r'^/promo/?$', handlers.PromoCodeHandler, name='promo_code_create'),
     url(r'^/promo-list/?$', handlers.PromoCodeListHandler, name='promo_codes'),
-    url(r'^/use-promo/(?P<id>[^/]+)/?$', handlers.UsePromoCode, name='use_promo_codes'),
+    url(r'^/use-promo/(?P<id>[^/]+)/?$', handlers.UsePromoCode, name='use_promo_code'),
 ]
