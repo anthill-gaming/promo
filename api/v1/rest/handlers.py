@@ -9,7 +9,7 @@ from .forms import EditPromoCodeForm
 class PromoCodeHandler(CreatingMixin, UpdatingMixin, DeletionMixin, DetailMixin,
                        ModelFormHandler):
     """Multiple operations with promo code items."""
-    model = PromoCode
+    queryset = PromoCode.query.filter_by(enabled=True)
 
     def get_form_class(self):
         """Return the form class to use in this handler."""
@@ -21,12 +21,12 @@ class PromoCodeHandler(CreatingMixin, UpdatingMixin, DeletionMixin, DetailMixin,
 
 class PromoCodeListHandler(ListHandler):
     """Get list of promo codes."""
-    model = PromoCode
+    queryset = PromoCode.query.filter_by(enabled=True)
 
 
 class UsePromoCode(ModelFormHandler):
     """Use promo code."""
-    model = PromoCode
+    queryset = PromoCode.query.filter_by(enabled=True)
 
     async def put(self, *args, **kwargs):
         # noinspection PyAttributeOutsideInit
